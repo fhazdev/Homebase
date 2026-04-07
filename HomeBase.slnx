@@ -1,0 +1,13 @@
+<Solution>
+  <Folder Name="/src/">
+    <Project Path="src/HomeBase.Api/HomeBase.Api.csproj" />
+    <Project Path="src/HomeBase.Application/HomeBase.Application.csproj" />
+    <Project Path="src/HomeBase.Domain/HomeBase.Domain.csproj" />
+    <Project Path="src/HomeBase.Infrastructure/HomeBase.Infrastructure.csproj" />
+  </Folder>
+  <Folder Name="/tests/">
+    <Project Path="tests/HomeBase.Api.Tests/HomeBase.Api.Tests.csproj" />
+    <Project Path="tests/HomeBase.Application.Tests/HomeBase.Application.Tests.csproj" />
+    <Project Path="tests/HomeBase.Domain.Tests/HomeBase.Domain.Tests.csproj" />
+  </Folder>
+</Solution>

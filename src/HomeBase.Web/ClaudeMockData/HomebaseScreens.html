@@ -1,0 +1,1392 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>HomeBase — Full App Mockup</title>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&family=Outfit:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  :root { --transition: 0.3s cubic-bezier(0.4, 0, 0.2, 1); }
+
+  [data-theme="dark"] {
+    --bg-body: #1c1f21;
+    --bg-phone: #131617;
+    --bg-card: rgba(255,255,255,0.035);
+    --bg-card-hover: rgba(255,255,255,0.06);
+    --bg-input: rgba(255,255,255,0.05);
+    --border-card: rgba(255,255,255,0.07);
+    --border-subtle: rgba(255,255,255,0.04);
+    --border-input: rgba(255,255,255,0.1);
+    --border-input-focus: rgba(200,245,64,0.4);
+    --text-primary: #eaeaea;
+    --text-secondary: #888;
+    --text-tertiary: #555;
+    --text-placeholder: #444;
+    --accent: #c8f540;
+    --accent-dim: rgba(200,245,64,0.1);
+    --accent-border: rgba(200,245,64,0.2);
+    --accent-solid-bg: #c8f540;
+    --accent-solid-text: #131617;
+    --danger: #ff6b6b;
+    --danger-dim: rgba(255,107,107,0.1);
+    --danger-border: rgba(255,107,107,0.18);
+    --warn: #ffb84d;
+    --warn-dim: rgba(255,184,77,0.1);
+    --info: #56c8f0;
+    --info-dim: rgba(86,200,240,0.1);
+    --info-border: rgba(86,200,240,0.15);
+    --done-color: #5dd9a0;
+    --done-dim: rgba(93,217,160,0.1);
+    --cal-today-bg: var(--accent);
+    --cal-today-text: #131617;
+    --cal-dot: #ff6b6b;
+    --cal-today-dot: #131617;
+    --chip-active-bg: rgba(200,245,64,0.12);
+    --chip-active-text: var(--accent);
+    --chip-active-border: rgba(200,245,64,0.25);
+    --chip-bg: rgba(255,255,255,0.04);
+    --chip-text: #666;
+    --chip-border: rgba(255,255,255,0.06);
+    --tab-bg: rgba(255,255,255,0.04);
+    --tab-active-bg: rgba(255,255,255,0.1);
+    --tab-active-text: var(--text-primary);
+    --nav-bg: rgba(19,22,23,0.96);
+    --nav-border: rgba(255,255,255,0.06);
+    --nav-active: var(--accent);
+    --nav-inactive: #444;
+    --frame-border: #333;
+    --statusbar-bg: linear-gradient(to bottom, #131617 70%, transparent);
+    --toggle-icon: #ffc13b;
+    --overdue-left-border: #ff6b6b;
+    --freq-bg: rgba(255,255,255,0.05);
+    --freq-text: #666;
+    --timeline-line: rgba(255,255,255,0.06);
+    --timeline-dot: rgba(255,255,255,0.15);
+    --photo-bg: rgba(255,255,255,0.04);
+    --toggle-track: rgba(255,255,255,0.1);
+    --toggle-track-on: rgba(200,245,64,0.3);
+    --toggle-thumb: #555;
+    --toggle-thumb-on: var(--accent);
+    --divider: rgba(255,255,255,0.05);
+    --search-bg: rgba(255,255,255,0.05);
+  }
+
+  [data-theme="light"] {
+    --bg-body: #e5e2da;
+    --bg-phone: #f5f3ee;
+    --bg-card: rgba(0,0,0,0.025);
+    --bg-card-hover: rgba(0,0,0,0.045);
+    --bg-input: rgba(0,0,0,0.035);
+    --border-card: rgba(0,0,0,0.07);
+    --border-subtle: rgba(0,0,0,0.04);
+    --border-input: rgba(0,0,0,0.12);
+    --border-input-focus: rgba(58,125,34,0.5);
+    --text-primary: #1a1c1e;
+    --text-secondary: #6b6e72;
+    --text-tertiary: #9a9da1;
+    --text-placeholder: #bbb;
+    --accent: #3a7d22;
+    --accent-dim: rgba(58,125,34,0.08);
+    --accent-border: rgba(58,125,34,0.2);
+    --accent-solid-bg: #1a1c1e;
+    --accent-solid-text: #f5f3ee;
+    --danger: #c0392b;
+    --danger-dim: rgba(192,57,43,0.07);
+    --danger-border: rgba(192,57,43,0.15);
+    --warn: #d48a0a;
+    --warn-dim: rgba(212,138,10,0.08);
+    --info: #2980b9;
+    --info-dim: rgba(41,128,185,0.07);
+    --info-border: rgba(41,128,185,0.14);
+    --done-color: #27ae60;
+    --done-dim: rgba(39,174,96,0.07);
+    --cal-today-bg: #1a1c1e;
+    --cal-today-text: #f5f3ee;
+    --cal-dot: #c0392b;
+    --cal-today-dot: #f5f3ee;
+    --chip-active-bg: rgba(58,125,34,0.1);
+    --chip-active-text: #3a7d22;
+    --chip-active-border: rgba(58,125,34,0.25);
+    --chip-bg: rgba(0,0,0,0.03);
+    --chip-text: #999;
+    --chip-border: rgba(0,0,0,0.06);
+    --tab-bg: rgba(0,0,0,0.03);
+    --tab-active-bg: #fff;
+    --tab-active-text: var(--text-primary);
+    --nav-bg: rgba(245,243,238,0.96);
+    --nav-border: rgba(0,0,0,0.08);
+    --nav-active: #1a1c1e;
+    --nav-inactive: #bbb;
+    --frame-border: #ccc8be;
+    --statusbar-bg: linear-gradient(to bottom, #f5f3ee 70%, transparent);
+    --toggle-icon: #f39c12;
+    --overdue-left-border: #c0392b;
+    --freq-bg: rgba(0,0,0,0.04);
+    --freq-text: #999;
+    --timeline-line: rgba(0,0,0,0.07);
+    --timeline-dot: rgba(0,0,0,0.12);
+    --photo-bg: rgba(0,0,0,0.04);
+    --toggle-track: rgba(0,0,0,0.1);
+    --toggle-track-on: rgba(58,125,34,0.3);
+    --toggle-thumb: #ccc;
+    --toggle-thumb-on: var(--accent);
+    --divider: rgba(0,0,0,0.06);
+    --search-bg: rgba(0,0,0,0.04);
+  }
+
+  body {
+    background: var(--bg-body);
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    min-height: 100vh;
+    font-family: 'Outfit', sans-serif;
+    padding: 20px;
+    gap: 24px;
+    flex-wrap: wrap;
+    transition: background var(--transition);
+  }
+
+  .phone-frame {
+    width: 390px;
+    height: 844px;
+    background: var(--bg-phone);
+    border-radius: 40px;
+    overflow: hidden;
+    position: relative;
+    box-shadow: 0 0 0 3px var(--frame-border), 0 20px 60px rgba(0,0,0,0.2);
+    transition: background var(--transition), box-shadow var(--transition);
+    flex-shrink: 0;
+  }
+
+  .screen {
+    width: 100%;
+    height: 100%;
+    overflow-y: auto;
+    padding: 58px 18px 100px;
+    scrollbar-width: none;
+  }
+  .screen::-webkit-scrollbar { display: none; }
+
+  .status-bar {
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 54px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 28px 0;
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--text-primary);
+    font-family: 'JetBrains Mono', monospace;
+    z-index: 10;
+    background: var(--statusbar-bg);
+    transition: color var(--transition);
+  }
+  .status-right { font-size: 12px; color: var(--text-secondary); }
+
+  /* ─── Screen label ─── */
+  .screen-label {
+    position: absolute;
+    top: 10px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: var(--accent-dim);
+    color: var(--accent);
+    border: 1px solid var(--accent-border);
+    padding: 4px 14px;
+    border-radius: 16px;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+    z-index: 20;
+    font-family: 'JetBrains Mono', monospace;
+    white-space: nowrap;
+  }
+
+  /* ─── Shared Components ─── */
+  .header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 18px;
+  }
+  .header h1 {
+    font-size: 24px;
+    font-weight: 700;
+    color: var(--text-primary);
+    letter-spacing: -0.5px;
+    transition: color var(--transition);
+  }
+  .header-actions { display: flex; gap: 8px; align-items: center; }
+  .icon-btn {
+    width: 36px;
+    height: 36px;
+    border-radius: 10px;
+    background: var(--bg-card);
+    border: 1px solid var(--border-card);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.15s;
+  }
+  .icon-btn:hover { background: var(--bg-card-hover); }
+  .icon-btn svg { width: 17px; height: 17px; stroke: var(--text-secondary); stroke-width: 2; fill: none; transition: stroke var(--transition); }
+  .theme-toggle svg { stroke: var(--toggle-icon); fill: var(--toggle-icon); }
+
+  /* Back button */
+  .back-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 22px;
+  }
+  .back-btn {
+    width: 36px;
+    height: 36px;
+    border-radius: 10px;
+    background: var(--bg-card);
+    border: 1px solid var(--border-card);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    flex-shrink: 0;
+    transition: all 0.15s;
+  }
+  .back-btn:hover { background: var(--bg-card-hover); }
+  .back-btn svg { width: 18px; height: 18px; stroke: var(--text-secondary); stroke-width: 2; fill: none; }
+  .back-title {
+    font-size: 20px;
+    font-weight: 700;
+    color: var(--text-primary);
+    transition: color var(--transition);
+  }
+  .back-header-right { margin-left: auto; }
+
+  .section { margin-bottom: 24px; }
+  .section-head {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 12px;
+  }
+  .section-title {
+    font-size: 12px;
+    font-weight: 700;
+    color: var(--text-tertiary);
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    transition: color var(--transition);
+  }
+  .section-badge {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    font-weight: 700;
+    padding: 4px 10px;
+    border-radius: 6px;
+    letter-spacing: 0.3px;
+  }
+  .section-badge.red { background: var(--danger-dim); color: var(--danger); border: 1px solid var(--danger-border); }
+  .section-badge.blue { background: var(--info-dim); color: var(--info); border: 1px solid var(--info-border); }
+  .section-badge.green { background: var(--done-dim); color: var(--done-color); border: 1px solid rgba(93,217,160,0.2); }
+  .section-action {
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--accent);
+    cursor: pointer;
+  }
+
+  .task-row {
+    background: var(--bg-card);
+    border: 1px solid var(--border-card);
+    border-radius: 14px;
+    padding: 13px 14px;
+    margin-bottom: 8px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    transition: all 0.15s;
+    cursor: pointer;
+  }
+  .task-row:active { transform: scale(0.98); }
+  .task-row:hover { background: var(--bg-card-hover); }
+  .task-row.overdue { border-left: 3px solid var(--overdue-left-border); }
+
+  .task-icon-box {
+    width: 38px;
+    height: 38px;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 17px;
+    flex-shrink: 0;
+    background: var(--bg-card);
+    border: 1px solid var(--border-subtle);
+    transition: all var(--transition);
+  }
+  .task-content { flex: 1; min-width: 0; }
+  .task-name {
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--text-primary);
+    transition: color var(--transition);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  .task-meta-row {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-top: 3px;
+  }
+  .task-freq {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    font-weight: 600;
+    color: var(--freq-text);
+    background: var(--freq-bg);
+    padding: 2px 6px;
+    border-radius: 4px;
+    transition: all var(--transition);
+  }
+  .task-date {
+    font-size: 12px;
+    color: var(--text-tertiary);
+    transition: color var(--transition);
+  }
+  .task-action { display: flex; align-items: center; gap: 8px; flex-shrink: 0; }
+  .task-countdown {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 13px;
+    font-weight: 700;
+    white-space: nowrap;
+  }
+  .task-countdown.late { color: var(--danger); }
+  .task-countdown.soon { color: var(--info); }
+  .task-countdown.ok { color: var(--accent); }
+
+  .mark-done-btn {
+    width: 30px;
+    height: 30px;
+    border-radius: 8px;
+    background: var(--accent-dim);
+    border: 1px solid var(--accent-border);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.15s;
+    flex-shrink: 0;
+  }
+  .mark-done-btn:hover { background: var(--accent-border); }
+  .mark-done-btn svg { width: 14px; height: 14px; stroke: var(--accent); stroke-width: 2.5; fill: none; }
+
+  .filter-chips {
+    display: flex;
+    gap: 7px;
+    margin-bottom: 12px;
+    overflow-x: auto;
+    scrollbar-width: none;
+  }
+  .filter-chips::-webkit-scrollbar { display: none; }
+  .chip {
+    padding: 7px 15px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: 600;
+    white-space: nowrap;
+    cursor: pointer;
+    transition: all 0.15s;
+    border: 1px solid transparent;
+  }
+  .chip.active {
+    background: var(--chip-active-bg);
+    color: var(--chip-active-text);
+    border-color: var(--chip-active-border);
+  }
+  .chip:not(.active) {
+    background: var(--chip-bg);
+    color: var(--chip-text);
+    border-color: var(--chip-border);
+  }
+
+  .days-badge {
+    min-width: 40px;
+    height: 40px;
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+  .days-badge.warn { background: var(--warn-dim); }
+  .days-badge.safe { background: var(--done-dim); }
+  .days-badge .num {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 16px;
+    font-weight: 700;
+    line-height: 1;
+  }
+  .days-badge.warn .num { color: var(--warn); }
+  .days-badge.safe .num { color: var(--done-color); }
+  .days-badge .unit { font-size: 8px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; }
+  .days-badge.warn .unit { color: var(--warn); }
+  .days-badge.safe .unit { color: var(--done-color); }
+
+  .cal-strip {
+    display: flex;
+    gap: 5px;
+    margin-bottom: 20px;
+    overflow-x: auto;
+    scrollbar-width: none;
+    padding: 2px 0;
+  }
+  .cal-strip::-webkit-scrollbar { display: none; }
+  .cal-day {
+    min-width: 47px;
+    padding: 9px 5px 10px;
+    border-radius: 12px;
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.15s;
+    border: 1px solid transparent;
+  }
+  .cal-day .dow { font-size: 10px; font-weight: 600; color: var(--text-tertiary); text-transform: uppercase; letter-spacing: 0.4px; }
+  .cal-day .d { font-family: 'JetBrains Mono', monospace; font-size: 17px; font-weight: 700; color: var(--text-secondary); margin-top: 2px; }
+  .cal-day .dot { width: 4px; height: 4px; border-radius: 50%; margin: 4px auto 0; }
+  .cal-day.today { background: var(--cal-today-bg); border-color: var(--cal-today-bg); }
+  .cal-day.today .dow, .cal-day.today .d { color: var(--cal-today-text); }
+  .cal-day.has-task .dot { background: var(--cal-dot); }
+  .cal-day.today.has-task .dot { background: var(--cal-today-dot); }
+  .cal-day:not(.today):hover { background: var(--bg-card); }
+
+  .cat-tabs {
+    display: flex;
+    gap: 0;
+    margin-bottom: 20px;
+    background: var(--tab-bg);
+    border-radius: 12px;
+    padding: 3px;
+  }
+  .cat-tab {
+    flex: 1;
+    text-align: center;
+    padding: 9px 8px;
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--text-tertiary);
+    border-radius: 10px;
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+  .cat-tab.active {
+    background: var(--tab-active-bg);
+    color: var(--tab-active-text);
+    box-shadow: 0 1px 4px rgba(0,0,0,0.08);
+  }
+
+  .check-icon {
+    width: 26px; height: 26px; border-radius: 50%;
+    background: var(--done-dim);
+    display: flex; align-items: center; justify-content: center; flex-shrink: 0;
+  }
+  .check-icon svg { width: 13px; height: 13px; stroke: var(--done-color); stroke-width: 2.5; fill: none; }
+
+  .recent-item {
+    display: flex; align-items: center; gap: 12px; padding: 11px 0;
+    border-bottom: 1px solid var(--border-subtle);
+  }
+  .recent-item:last-child { border-bottom: none; }
+  .recent-name { font-size: 13px; color: var(--text-tertiary); font-weight: 500; }
+  .recent-date { font-size: 11px; color: var(--text-tertiary); margin-top: 1px; opacity: 0.7; }
+
+  .fab {
+    position: absolute;
+    bottom: 98px;
+    right: 22px;
+    width: 52px;
+    height: 52px;
+    background: var(--accent-solid-bg);
+    border-radius: 14px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 6px 20px rgba(0,0,0,0.25);
+    cursor: pointer;
+    transition: transform 0.15s, background var(--transition);
+    z-index: 11;
+  }
+  .fab:hover { transform: scale(1.06); }
+  .fab svg { width: 24px; height: 24px; fill: var(--accent-solid-text); }
+
+  .bottom-nav {
+    position: absolute;
+    bottom: 0; left: 0; right: 0;
+    height: 84px;
+    background: var(--nav-bg);
+    backdrop-filter: blur(20px);
+    border-top: 1px solid var(--nav-border);
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-around;
+    padding-top: 12px;
+    z-index: 10;
+    transition: all var(--transition);
+  }
+  .nav-item {
+    display: flex; flex-direction: column; align-items: center; gap: 3px; cursor: pointer; position: relative;
+  }
+  .nav-item svg { width: 22px; height: 22px; stroke-width: 1.8; fill: none; transition: stroke var(--transition); }
+  .nav-item .nlabel { font-size: 9px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.4px; transition: color var(--transition); }
+  .nav-item.active svg { stroke: var(--nav-active); }
+  .nav-item.active .nlabel { color: var(--nav-active); font-weight: 700; }
+  .nav-item:not(.active) svg { stroke: var(--nav-inactive); }
+  .nav-item:not(.active) .nlabel { color: var(--nav-inactive); }
+  .nav-item.active::after {
+    content: ''; position: absolute; top: -12px; width: 18px; height: 3px;
+    background: var(--nav-active); border-radius: 0 0 3px 3px;
+  }
+
+  /* ═══════════════════════════════════════ */
+  /* TASK DETAIL SCREEN                      */
+  /* ═══════════════════════════════════════ */
+  .detail-hero {
+    text-align: center;
+    padding: 10px 0 24px;
+  }
+  .detail-emoji {
+    width: 64px;
+    height: 64px;
+    border-radius: 18px;
+    background: var(--bg-card);
+    border: 1px solid var(--border-card);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 30px;
+    margin-bottom: 12px;
+  }
+  .detail-name {
+    font-size: 22px;
+    font-weight: 700;
+    color: var(--text-primary);
+    transition: color var(--transition);
+  }
+  .detail-category {
+    font-size: 12px;
+    color: var(--text-tertiary);
+    margin-top: 4px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+  }
+
+  .detail-stats {
+    display: flex;
+    gap: 8px;
+    margin-bottom: 24px;
+  }
+  .detail-stat {
+    flex: 1;
+    background: var(--bg-card);
+    border: 1px solid var(--border-card);
+    border-radius: 14px;
+    padding: 14px 10px;
+    text-align: center;
+  }
+  .detail-stat-val {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 18px;
+    font-weight: 700;
+    line-height: 1;
+  }
+  .detail-stat-val.danger { color: var(--danger); }
+  .detail-stat-val.neutral { color: var(--text-primary); }
+  .detail-stat-val.accent { color: var(--accent); }
+  .detail-stat-label {
+    font-size: 10px;
+    color: var(--text-tertiary);
+    margin-top: 5px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    font-weight: 600;
+  }
+
+  .detail-info-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 14px 0;
+    border-bottom: 1px solid var(--divider);
+  }
+  .detail-info-row:last-child { border-bottom: none; }
+  .info-label { font-size: 13px; color: var(--text-tertiary); font-weight: 500; }
+  .info-value {
+    font-size: 13px; font-weight: 600; color: var(--text-primary);
+    font-family: 'JetBrains Mono', monospace;
+    transition: color var(--transition);
+  }
+
+  /* Timeline history */
+  .history-timeline { position: relative; padding-left: 22px; }
+  .history-timeline::before {
+    content: ''; position: absolute; left: 6px; top: 8px; bottom: 8px; width: 2px;
+    background: var(--timeline-line);
+  }
+  .history-entry {
+    position: relative; padding: 0 0 18px; display: flex; align-items: flex-start; gap: 14px;
+  }
+  .history-entry:last-child { padding-bottom: 0; }
+  .history-dot {
+    position: absolute; left: -19px; top: 5px;
+    width: 10px; height: 10px; border-radius: 50%;
+    background: var(--done-color); border: 2px solid var(--bg-phone);
+  }
+  .history-content {}
+  .history-date { font-size: 12px; font-weight: 600; color: var(--text-secondary); font-family: 'JetBrains Mono', monospace; }
+  .history-note { font-size: 12px; color: var(--text-tertiary); margin-top: 2px; }
+
+  .primary-btn {
+    width: 100%;
+    padding: 15px;
+    border-radius: 14px;
+    background: var(--accent-solid-bg);
+    color: var(--accent-solid-text);
+    font-size: 14px;
+    font-weight: 700;
+    font-family: 'JetBrains Mono', monospace;
+    letter-spacing: 0.5px;
+    border: none;
+    cursor: pointer;
+    transition: all 0.15s;
+    text-transform: uppercase;
+  }
+  .primary-btn:hover { opacity: 0.9; transform: translateY(-1px); }
+  .primary-btn:active { transform: scale(0.98); }
+
+  /* ═══════════════════════════════════════ */
+  /* ADD TASK SCREEN                         */
+  /* ═══════════════════════════════════════ */
+  .form-group { margin-bottom: 20px; }
+  .form-label {
+    font-size: 11px;
+    font-weight: 700;
+    color: var(--text-tertiary);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 8px;
+    display: block;
+  }
+  .form-input {
+    width: 100%;
+    padding: 13px 14px;
+    border-radius: 12px;
+    background: var(--bg-input);
+    border: 1px solid var(--border-input);
+    color: var(--text-primary);
+    font-size: 15px;
+    font-family: 'Outfit', sans-serif;
+    font-weight: 500;
+    outline: none;
+    transition: all 0.2s;
+  }
+  .form-input::placeholder { color: var(--text-placeholder); }
+  .form-input:focus { border-color: var(--border-input-focus); box-shadow: 0 0 0 3px var(--accent-dim); }
+
+  .form-select {
+    width: 100%;
+    padding: 13px 14px;
+    border-radius: 12px;
+    background: var(--bg-input);
+    border: 1px solid var(--border-input);
+    color: var(--text-primary);
+    font-size: 15px;
+    font-family: 'Outfit', sans-serif;
+    font-weight: 500;
+    outline: none;
+    appearance: none;
+    background-image: url("data:image/svg+xml,%3Csvg width='12' height='8' viewBox='0 0 12 8' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M1 1.5L6 6.5L11 1.5' stroke='%23888' stroke-width='2' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 14px center;
+    cursor: pointer;
+  }
+
+  .interval-row {
+    display: flex;
+    gap: 10px;
+  }
+  .interval-row .form-input { flex: 1; }
+  .interval-row .form-select { flex: 1; }
+
+  .emoji-picker {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+  }
+  .emoji-option {
+    width: 44px;
+    height: 44px;
+    border-radius: 12px;
+    background: var(--bg-card);
+    border: 2px solid var(--border-card);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 20px;
+    cursor: pointer;
+    transition: all 0.15s;
+  }
+  .emoji-option.selected { border-color: var(--accent); background: var(--accent-dim); }
+  .emoji-option:hover { border-color: var(--text-tertiary); }
+
+  .form-textarea {
+    width: 100%;
+    padding: 13px 14px;
+    border-radius: 12px;
+    background: var(--bg-input);
+    border: 1px solid var(--border-input);
+    color: var(--text-primary);
+    font-size: 14px;
+    font-family: 'Outfit', sans-serif;
+    font-weight: 500;
+    outline: none;
+    resize: none;
+    min-height: 80px;
+    transition: all 0.2s;
+  }
+  .form-textarea::placeholder { color: var(--text-placeholder); }
+  .form-textarea:focus { border-color: var(--border-input-focus); box-shadow: 0 0 0 3px var(--accent-dim); }
+
+  .photo-add {
+    display: flex;
+    gap: 10px;
+  }
+  .photo-slot {
+    width: 64px;
+    height: 64px;
+    border-radius: 12px;
+    background: var(--photo-bg);
+    border: 2px dashed var(--border-card);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.15s;
+  }
+  .photo-slot:hover { border-color: var(--text-tertiary); }
+  .photo-slot svg { width: 22px; height: 22px; stroke: var(--text-tertiary); stroke-width: 1.5; fill: none; }
+
+  /* ═══════════════════════════════════════ */
+  /* TASK LIST SCREEN                        */
+  /* ═══════════════════════════════════════ */
+  .search-bar {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    background: var(--search-bg);
+    border: 1px solid var(--border-card);
+    border-radius: 12px;
+    padding: 10px 14px;
+    margin-bottom: 18px;
+    transition: all 0.2s;
+  }
+  .search-bar:focus-within { border-color: var(--border-input-focus); }
+  .search-bar svg { width: 18px; height: 18px; stroke: var(--text-tertiary); stroke-width: 2; fill: none; flex-shrink: 0; }
+  .search-input {
+    flex: 1; background: transparent; border: none; color: var(--text-primary);
+    font-size: 14px; font-family: 'Outfit', sans-serif; outline: none;
+  }
+  .search-input::placeholder { color: var(--text-placeholder); }
+
+  .sort-bar {
+    display: flex;
+    gap: 7px;
+    margin-bottom: 16px;
+  }
+
+  .task-group-label {
+    font-size: 11px;
+    font-weight: 700;
+    color: var(--text-tertiary);
+    text-transform: uppercase;
+    letter-spacing: 1.2px;
+    margin: 16px 0 10px;
+    padding-left: 2px;
+  }
+
+  /* Arrow indicator on task rows in list */
+  .arrow-icon { flex-shrink: 0; }
+  .arrow-icon svg { width: 16px; height: 16px; stroke: var(--text-tertiary); stroke-width: 2; fill: none; }
+
+  /* ═══════════════════════════════════════ */
+  /* SETTINGS SCREEN                         */
+  /* ═══════════════════════════════════════ */
+  .settings-group {
+    margin-bottom: 28px;
+  }
+  .settings-group-title {
+    font-size: 11px;
+    font-weight: 700;
+    color: var(--text-tertiary);
+    text-transform: uppercase;
+    letter-spacing: 1.2px;
+    margin-bottom: 10px;
+    padding-left: 2px;
+  }
+  .settings-card {
+    background: var(--bg-card);
+    border: 1px solid var(--border-card);
+    border-radius: 14px;
+    overflow: hidden;
+  }
+  .settings-row {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 14px 16px;
+    border-bottom: 1px solid var(--divider);
+    cursor: pointer;
+    transition: background 0.15s;
+  }
+  .settings-row:last-child { border-bottom: none; }
+  .settings-row:hover { background: var(--bg-card-hover); }
+  .settings-icon {
+    width: 34px; height: 34px; border-radius: 9px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 16px; flex-shrink: 0;
+  }
+  .settings-icon.blue { background: var(--info-dim); }
+  .settings-icon.green { background: var(--done-dim); }
+  .settings-icon.orange { background: var(--warn-dim); }
+  .settings-icon.red { background: var(--danger-dim); }
+  .settings-icon.purple { background: rgba(168,130,255,0.1); }
+  .settings-icon.gray { background: var(--bg-card); }
+  .settings-label { flex: 1; font-size: 14px; font-weight: 500; color: var(--text-primary); transition: color var(--transition); }
+  .settings-value { font-size: 13px; color: var(--text-tertiary); font-family: 'JetBrains Mono', monospace; }
+
+  /* Toggle switch */
+  .toggle-switch {
+    width: 44px;
+    height: 26px;
+    border-radius: 13px;
+    background: var(--toggle-track);
+    position: relative;
+    cursor: pointer;
+    transition: background 0.2s;
+    flex-shrink: 0;
+  }
+  .toggle-switch.on { background: var(--toggle-track-on); }
+  .toggle-switch::after {
+    content: '';
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background: var(--toggle-thumb);
+    position: absolute;
+    top: 3px;
+    left: 3px;
+    transition: all 0.2s;
+  }
+  .toggle-switch.on::after { left: 21px; background: var(--toggle-thumb-on); }
+
+  .settings-chevron svg { width: 16px; height: 16px; stroke: var(--text-tertiary); stroke-width: 2; fill: none; }
+
+  .app-version {
+    text-align: center;
+    padding: 20px;
+    font-size: 12px;
+    color: var(--text-tertiary);
+    font-family: 'JetBrains Mono', monospace;
+  }
+
+  /* ─── Animations ─── */
+  .anim-1 { animation: slideUp 0.35s ease both; }
+  .anim-2 { animation: slideUp 0.4s ease both; animation-delay: 0.03s; }
+  .anim-3 { animation: slideUp 0.45s ease both; animation-delay: 0.06s; }
+  .anim-4 { animation: slideUp 0.5s ease both; animation-delay: 0.09s; }
+  .anim-5 { animation: slideUp 0.55s ease both; animation-delay: 0.12s; }
+  .anim-6 { animation: slideUp 0.6s ease both; animation-delay: 0.15s; }
+  .anim-7 { animation: slideUp 0.65s ease both; animation-delay: 0.18s; }
+
+  @keyframes slideUp {
+    from { opacity: 0; transform: translateY(14px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+</style>
+</head>
+<body>
+
+<!-- ═══════════════════════════════════════════════ -->
+<!-- SCREEN 1: DASHBOARD                             -->
+<!-- ═══════════════════════════════════════════════ -->
+<div class="phone-frame" data-theme="dark" id="frame1">
+  <div class="screen-label">DASHBOARD</div>
+  <div class="status-bar"><span>09:41</span><div class="status-right">SAT MAR 28</div></div>
+  <div class="screen">
+    <div class="header anim-1">
+      <h1>HOMEBASE_</h1>
+      <div class="header-actions">
+        <div class="icon-btn"><svg viewBox="0 0 24 24"><path d="M18 8A6 6 0 006 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 01-3.46 0"/></svg></div>
+        <div class="icon-btn theme-toggle" onclick="toggleAll()">
+          <svg class="moon-icon" viewBox="0 0 24 24"><path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/></svg>
+          <svg class="sun-icon" viewBox="0 0 24 24" style="display:none"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
+        </div>
+      </div>
+    </div>
+    <div class="cal-strip anim-2">
+      <div class="cal-day"><div class="dow">Mon</div><div class="d">24</div><div class="dot"></div></div>
+      <div class="cal-day has-task"><div class="dow">Tue</div><div class="d">25</div><div class="dot"></div></div>
+      <div class="cal-day"><div class="dow">Wed</div><div class="d">26</div><div class="dot"></div></div>
+      <div class="cal-day"><div class="dow">Thu</div><div class="d">27</div><div class="dot"></div></div>
+      <div class="cal-day today has-task"><div class="dow">Fri</div><div class="d">28</div><div class="dot"></div></div>
+      <div class="cal-day"><div class="dow">Sat</div><div class="d">29</div><div class="dot"></div></div>
+      <div class="cal-day has-task"><div class="dow">Sun</div><div class="d">30</div><div class="dot"></div></div>
+    </div>
+    <div class="cat-tabs anim-3">
+      <div class="cat-tab active" onclick="switchTab(this)">All</div>
+      <div class="cat-tab" onclick="switchTab(this)">Home</div>
+      <div class="cat-tab" onclick="switchTab(this)">Vehicle</div>
+      <div class="cat-tab" onclick="switchTab(this)">Yard</div>
+    </div>
+    <div class="section anim-4">
+      <div class="section-head"><div class="section-title">Needs Attention</div><div class="section-badge red">2 OVERDUE</div></div>
+      <div class="task-row overdue">
+        <div class="task-icon-box">💧</div>
+        <div class="task-content"><div class="task-name">Water Filter</div><div class="task-meta-row"><span class="task-freq">6MO</span><span class="task-date">Last: Sep 16</span></div></div>
+        <div class="task-action"><div class="task-countdown late">-12d</div><div class="mark-done-btn"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div></div>
+      </div>
+      <div class="task-row overdue">
+        <div class="task-icon-box">🛢️</div>
+        <div class="task-content"><div class="task-name">Truck Oil Change</div><div class="task-meta-row"><span class="task-freq">5K MI</span><span class="task-date">Last: Oct 28</span></div></div>
+        <div class="task-action"><div class="task-countdown late">-3d</div><div class="mark-done-btn"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div></div>
+      </div>
+    </div>
+    <div class="section anim-5">
+      <div class="section-head"><div class="section-title">Coming Up</div><div class="section-badge blue">UPCOMING</div></div>
+      <div class="filter-chips">
+        <div class="chip active" onclick="switchChip(this)">7 Days</div>
+        <div class="chip" onclick="switchChip(this)">30 Days</div>
+        <div class="chip" onclick="switchChip(this)">90 Days</div>
+        <div class="chip" onclick="switchChip(this)">Custom</div>
+      </div>
+      <div class="task-row">
+        <div class="days-badge warn"><div class="num">3</div><div class="unit">days</div></div>
+        <div class="task-content"><div class="task-name">AC Air Filter</div><div class="task-meta-row"><span class="task-freq">3MO</span><span class="task-date">Due: Mar 31</span></div></div>
+        <div class="mark-done-btn"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div>
+      </div>
+      <div class="task-row">
+        <div class="days-badge safe"><div class="num">5</div><div class="unit">days</div></div>
+        <div class="task-content"><div class="task-name">Fertilize Lawn</div><div class="task-meta-row"><span class="task-freq">8WK</span><span class="task-date">Due: Apr 2</span></div></div>
+        <div class="mark-done-btn"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div>
+      </div>
+    </div>
+    <div class="section anim-6">
+      <div class="section-head"><div class="section-title">Recently Done</div><div class="section-action">History →</div></div>
+      <div class="recent-item"><div class="check-icon"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div><div><div class="recent-name">Dryer Vent Cleaning</div><div class="recent-date">Mar 22 · Next due Sep 22</div></div></div>
+      <div class="recent-item"><div class="check-icon"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div><div><div class="recent-name">Garage Door Lube</div><div class="recent-date">Mar 18 · Next due Sep 18</div></div></div>
+    </div>
+  </div>
+  <div class="fab"><svg viewBox="0 0 24 24"><path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"/></svg></div>
+  <div class="bottom-nav">
+    <div class="nav-item active"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg><span class="nlabel">Dash</span></div>
+    <div class="nav-item"><svg viewBox="0 0 24 24"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h11"/></svg><span class="nlabel">Tasks</span></div>
+    <div class="nav-item"><svg viewBox="0 0 24 24"><line x1="12" y1="20" x2="12" y2="10"/><line x1="18" y1="20" x2="18" y2="4"/><line x1="6" y1="20" x2="6" y2="16"/></svg><span class="nlabel">Stats</span></div>
+    <div class="nav-item"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 00.33 1.82l.06.06a2 2 0 010 2.83 2 2 0 01-2.83 0l-.06-.06a1.65 1.65 0 00-1.82-.33 1.65 1.65 0 00-1 1.51V21a2 2 0 01-4 0v-.09A1.65 1.65 0 009 19.4a1.65 1.65 0 00-1.82.33l-.06.06a2 2 0 01-2.83-2.83l.06-.06A1.65 1.65 0 004.68 15a1.65 1.65 0 00-1.51-1H3a2 2 0 010-4h.09A1.65 1.65 0 004.6 9a1.65 1.65 0 00-.33-1.82l-.06-.06a2 2 0 012.83-2.83l.06.06A1.65 1.65 0 009 4.68a1.65 1.65 0 001-1.51V3a2 2 0 014 0v.09a1.65 1.65 0 001 1.51 1.65 1.65 0 001.82-.33l.06-.06a2 2 0 012.83 2.83l-.06.06A1.65 1.65 0 0019.4 9a1.65 1.65 0 001.51 1H21a2 2 0 010 4h-.09a1.65 1.65 0 00-1.51 1z"/></svg><span class="nlabel">Settings</span></div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════ -->
+<!-- SCREEN 2: TASK LIST                             -->
+<!-- ═══════════════════════════════════════════════ -->
+<div class="phone-frame" data-theme="dark" id="frame2">
+  <div class="screen-label">TASK LIST</div>
+  <div class="status-bar"><span>09:41</span><div class="status-right">SAT MAR 28</div></div>
+  <div class="screen">
+    <div class="header anim-1">
+      <h1>ALL TASKS_</h1>
+      <div class="header-actions">
+        <div class="icon-btn"><svg viewBox="0 0 24 24"><line x1="4" y1="6" x2="20" y2="6"/><line x1="4" y1="12" x2="20" y2="12"/><line x1="4" y1="18" x2="14" y2="18"/></svg></div>
+      </div>
+    </div>
+    <div class="search-bar anim-2">
+      <svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+      <input class="search-input" placeholder="Search tasks..." type="text">
+    </div>
+    <div class="sort-bar anim-3">
+      <div class="chip active" onclick="switchSort(this)">All</div>
+      <div class="chip" onclick="switchSort(this)">Overdue</div>
+      <div class="chip" onclick="switchSort(this)">Due Soon</div>
+      <div class="chip" onclick="switchSort(this)">On Track</div>
+    </div>
+
+    <div class="task-group-label anim-4">🏠 Home</div>
+    <div class="task-row overdue anim-4">
+      <div class="task-icon-box">💧</div>
+      <div class="task-content"><div class="task-name">Water Filter</div><div class="task-meta-row"><span class="task-freq">6MO</span><span class="task-date">12 days overdue</span></div></div>
+      <div class="task-action"><div class="task-countdown late">-12d</div><div class="arrow-icon"><svg viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg></div></div>
+    </div>
+    <div class="task-row anim-4">
+      <div class="task-icon-box">❄️</div>
+      <div class="task-content"><div class="task-name">AC Air Filter</div><div class="task-meta-row"><span class="task-freq">3MO</span><span class="task-date">Due in 3 days</span></div></div>
+      <div class="task-action"><div class="task-countdown soon">3d</div><div class="arrow-icon"><svg viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg></div></div>
+    </div>
+    <div class="task-row anim-4">
+      <div class="task-icon-box">🔥</div>
+      <div class="task-content"><div class="task-name">Dryer Vent Cleaning</div><div class="task-meta-row"><span class="task-freq">6MO</span><span class="task-date">Next: Sep 22</span></div></div>
+      <div class="task-action"><div class="task-countdown ok">178d</div><div class="arrow-icon"><svg viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg></div></div>
+    </div>
+    <div class="task-row anim-4">
+      <div class="task-icon-box">🔋</div>
+      <div class="task-content"><div class="task-name">Smoke Detector Batt.</div><div class="task-meta-row"><span class="task-freq">12MO</span><span class="task-date">Due in 7 days</span></div></div>
+      <div class="task-action"><div class="task-countdown ok">7d</div><div class="arrow-icon"><svg viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg></div></div>
+    </div>
+    <div class="task-row anim-4">
+      <div class="task-icon-box">🚪</div>
+      <div class="task-content"><div class="task-name">Garage Door Lube</div><div class="task-meta-row"><span class="task-freq">6MO</span><span class="task-date">Next: Sep 18</span></div></div>
+      <div class="task-action"><div class="task-countdown ok">174d</div><div class="arrow-icon"><svg viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg></div></div>
+    </div>
+
+    <div class="task-group-label anim-5">🚗 Vehicle</div>
+    <div class="task-row overdue anim-5">
+      <div class="task-icon-box">🛢️</div>
+      <div class="task-content"><div class="task-name">Truck Oil Change</div><div class="task-meta-row"><span class="task-freq">5K MI</span><span class="task-date">3 days overdue</span></div></div>
+      <div class="task-action"><div class="task-countdown late">-3d</div><div class="arrow-icon"><svg viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg></div></div>
+    </div>
+    <div class="task-row anim-5">
+      <div class="task-icon-box">🔄</div>
+      <div class="task-content"><div class="task-name">Tire Rotation</div><div class="task-meta-row"><span class="task-freq">10K MI</span><span class="task-date">Next: Jun 15</span></div></div>
+      <div class="task-action"><div class="task-countdown ok">79d</div><div class="arrow-icon"><svg viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg></div></div>
+    </div>
+
+    <div class="task-group-label anim-6">🌿 Yard</div>
+    <div class="task-row anim-6">
+      <div class="task-icon-box">🪴</div>
+      <div class="task-content"><div class="task-name">Fertilize Lawn</div><div class="task-meta-row"><span class="task-freq">8WK</span><span class="task-date">Due in 5 days</span></div></div>
+      <div class="task-action"><div class="task-countdown ok">5d</div><div class="arrow-icon"><svg viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg></div></div>
+    </div>
+    <div class="task-row anim-6">
+      <div class="task-icon-box">🌊</div>
+      <div class="task-content"><div class="task-name">Gutter Flush</div><div class="task-meta-row"><span class="task-freq">3MO</span><span class="task-date">Next: Jun 12</span></div></div>
+      <div class="task-action"><div class="task-countdown ok">76d</div><div class="arrow-icon"><svg viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg></div></div>
+    </div>
+  </div>
+  <div class="fab"><svg viewBox="0 0 24 24"><path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"/></svg></div>
+  <div class="bottom-nav">
+    <div class="nav-item"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg><span class="nlabel">Dash</span></div>
+    <div class="nav-item active"><svg viewBox="0 0 24 24"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h11"/></svg><span class="nlabel">Tasks</span></div>
+    <div class="nav-item"><svg viewBox="0 0 24 24"><line x1="12" y1="20" x2="12" y2="10"/><line x1="18" y1="20" x2="18" y2="4"/><line x1="6" y1="20" x2="6" y2="16"/></svg><span class="nlabel">Stats</span></div>
+    <div class="nav-item"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 00.33 1.82l.06.06a2 2 0 010 2.83 2 2 0 01-2.83 0l-.06-.06a1.65 1.65 0 00-1.82-.33 1.65 1.65 0 00-1 1.51V21a2 2 0 01-4 0v-.09A1.65 1.65 0 009 19.4a1.65 1.65 0 00-1.82.33l-.06.06a2 2 0 01-2.83-2.83l.06-.06A1.65 1.65 0 004.68 15a1.65 1.65 0 00-1.51-1H3a2 2 0 010-4h.09A1.65 1.65 0 004.6 9a1.65 1.65 0 00-.33-1.82l-.06-.06a2 2 0 012.83-2.83l.06.06A1.65 1.65 0 009 4.68a1.65 1.65 0 001-1.51V3a2 2 0 014 0v.09a1.65 1.65 0 001 1.51 1.65 1.65 0 001.82-.33l.06-.06a2 2 0 012.83 2.83l-.06.06A1.65 1.65 0 0019.4 9a1.65 1.65 0 001.51 1H21a2 2 0 010 4h-.09a1.65 1.65 0 00-1.51 1z"/></svg><span class="nlabel">Settings</span></div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════ -->
+<!-- SCREEN 3: TASK DETAIL                           -->
+<!-- ═══════════════════════════════════════════════ -->
+<div class="phone-frame" data-theme="dark" id="frame3">
+  <div class="screen-label">TASK DETAIL</div>
+  <div class="status-bar"><span>09:41</span><div class="status-right">SAT MAR 28</div></div>
+  <div class="screen">
+    <div class="back-header anim-1">
+      <div class="back-btn"><svg viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"/></svg></div>
+      <div class="back-title">Task Detail</div>
+      <div class="back-header-right">
+        <div class="icon-btn"><svg viewBox="0 0 24 24"><circle cx="12" cy="5" r="1.5"/><circle cx="12" cy="12" r="1.5"/><circle cx="12" cy="19" r="1.5"/></svg></div>
+      </div>
+    </div>
+
+    <div class="detail-hero anim-2">
+      <div class="detail-emoji">💧</div>
+      <div class="detail-name">Water Filter</div>
+      <div class="detail-category">Home · Kitchen</div>
+    </div>
+
+    <div class="detail-stats anim-3">
+      <div class="detail-stat">
+        <div class="detail-stat-val danger">-12d</div>
+        <div class="detail-stat-label">Status</div>
+      </div>
+      <div class="detail-stat">
+        <div class="detail-stat-val neutral">6mo</div>
+        <div class="detail-stat-label">Interval</div>
+      </div>
+      <div class="detail-stat">
+        <div class="detail-stat-val accent">8</div>
+        <div class="detail-stat-label">Completions</div>
+      </div>
+    </div>
+
+    <div class="section anim-4">
+      <div class="section-title" style="margin-bottom:10px">Details</div>
+      <div style="background:var(--bg-card);border:1px solid var(--border-card);border-radius:14px;overflow:hidden;">
+        <div class="detail-info-row" style="padding:14px 16px"><div class="info-label">Last Completed</div><div class="info-value">Sep 16, 2025</div></div>
+        <div class="detail-info-row" style="padding:14px 16px"><div class="info-label">Next Due</div><div class="info-value" style="color:var(--danger)">Mar 16, 2026</div></div>
+        <div class="detail-info-row" style="padding:14px 16px"><div class="info-label">Recurrence</div><div class="info-value">Every 6 months</div></div>
+        <div class="detail-info-row" style="padding:14px 16px"><div class="info-label">Filter Model</div><div class="info-value">GE FXHTC</div></div>
+      </div>
+    </div>
+
+    <div class="section anim-5">
+      <div class="section-head"><div class="section-title">Completion History</div><div class="section-badge green">8 TOTAL</div></div>
+      <div class="history-timeline">
+        <div class="history-entry"><div class="history-dot"></div><div class="history-content"><div class="history-date">Sep 16, 2025</div><div class="history-note">Replaced with GE FXHTC model</div></div></div>
+        <div class="history-entry"><div class="history-dot"></div><div class="history-content"><div class="history-date">Mar 14, 2025</div><div class="history-note">Standard replacement</div></div></div>
+        <div class="history-entry"><div class="history-dot"></div><div class="history-content"><div class="history-date">Sep 20, 2024</div><div class="history-note">Switched from Culligan brand</div></div></div>
+        <div class="history-entry"><div class="history-dot"></div><div class="history-content"><div class="history-date">Mar 10, 2024</div></div></div>
+        <div class="history-entry"><div class="history-dot"></div><div class="history-content"><div class="history-date">Sep 8, 2023</div></div></div>
+      </div>
+    </div>
+
+    <div class="anim-6" style="padding-bottom:8px;">
+      <button class="primary-btn">✓ LOG COMPLETION</button>
+    </div>
+  </div>
+  <div class="bottom-nav">
+    <div class="nav-item"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg><span class="nlabel">Dash</span></div>
+    <div class="nav-item active"><svg viewBox="0 0 24 24"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h11"/></svg><span class="nlabel">Tasks</span></div>
+    <div class="nav-item"><svg viewBox="0 0 24 24"><line x1="12" y1="20" x2="12" y2="10"/><line x1="18" y1="20" x2="18" y2="4"/><line x1="6" y1="20" x2="6" y2="16"/></svg><span class="nlabel">Stats</span></div>
+    <div class="nav-item"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 00.33 1.82l.06.06a2 2 0 010 2.83 2 2 0 01-2.83 0l-.06-.06a1.65 1.65 0 00-1.82-.33 1.65 1.65 0 00-1 1.51V21a2 2 0 01-4 0v-.09A1.65 1.65 0 009 19.4a1.65 1.65 0 00-1.82.33l-.06.06a2 2 0 01-2.83-2.83l.06-.06A1.65 1.65 0 004.68 15a1.65 1.65 0 00-1.51-1H3a2 2 0 010-4h.09A1.65 1.65 0 004.6 9a1.65 1.65 0 00-.33-1.82l-.06-.06a2 2 0 012.83-2.83l.06.06A1.65 1.65 0 009 4.68a1.65 1.65 0 001-1.51V3a2 2 0 014 0v.09a1.65 1.65 0 001 1.51 1.65 1.65 0 001.82-.33l.06-.06a2 2 0 012.83 2.83l-.06.06A1.65 1.65 0 0019.4 9a1.65 1.65 0 001.51 1H21a2 2 0 010 4h-.09a1.65 1.65 0 00-1.51 1z"/></svg><span class="nlabel">Settings</span></div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════ -->
+<!-- SCREEN 4: ADD TASK                              -->
+<!-- ═══════════════════════════════════════════════ -->
+<div class="phone-frame" data-theme="dark" id="frame4">
+  <div class="screen-label">ADD TASK</div>
+  <div class="status-bar"><span>09:41</span><div class="status-right">SAT MAR 28</div></div>
+  <div class="screen">
+    <div class="back-header anim-1">
+      <div class="back-btn"><svg viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></div>
+      <div class="back-title">New Task</div>
+    </div>
+
+    <div class="form-group anim-2">
+      <label class="form-label">Icon</label>
+      <div class="emoji-picker">
+        <div class="emoji-option selected">💧</div>
+        <div class="emoji-option">🛢️</div>
+        <div class="emoji-option">❄️</div>
+        <div class="emoji-option">🔥</div>
+        <div class="emoji-option">🔋</div>
+        <div class="emoji-option">🪴</div>
+        <div class="emoji-option">🚗</div>
+        <div class="emoji-option">🔄</div>
+      </div>
+    </div>
+
+    <div class="form-group anim-3">
+      <label class="form-label">Task Name</label>
+      <input class="form-input" type="text" placeholder="e.g. Water Filter Replacement">
+    </div>
+
+    <div class="form-group anim-3">
+      <label class="form-label">Category</label>
+      <select class="form-select">
+        <option>Home</option>
+        <option>Vehicle</option>
+        <option>Yard</option>
+        <option>+ New Category</option>
+      </select>
+    </div>
+
+    <div class="form-group anim-4">
+      <label class="form-label">Recurrence Interval</label>
+      <div class="interval-row">
+        <input class="form-input" type="number" placeholder="6" value="6">
+        <select class="form-select">
+          <option>Days</option>
+          <option>Weeks</option>
+          <option selected>Months</option>
+          <option>Years</option>
+          <option>Miles</option>
+        </select>
+      </div>
+    </div>
+
+    <div class="form-group anim-4">
+      <label class="form-label">Last Completed (optional)</label>
+      <input class="form-input" type="text" placeholder="YYYY-MM-DD" value="2025-09-16">
+    </div>
+
+    <div class="form-group anim-5">
+      <label class="form-label">Notes (optional)</label>
+      <textarea class="form-textarea" placeholder="Filter model, purchase link, tips...">GE FXHTC whole-house filter. Buy from Home Depot — usually $18.</textarea>
+    </div>
+
+    <div class="form-group anim-5">
+      <label class="form-label">Photo / Reference (optional)</label>
+      <div class="photo-add">
+        <div class="photo-slot"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg></div>
+        <div class="photo-slot"><svg viewBox="0 0 24 24"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></div>
+      </div>
+    </div>
+
+    <div class="anim-6" style="padding: 8px 0 12px;">
+      <button class="primary-btn">+ CREATE TASK</button>
+    </div>
+  </div>
+  <div class="bottom-nav">
+    <div class="nav-item"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg><span class="nlabel">Dash</span></div>
+    <div class="nav-item active"><svg viewBox="0 0 24 24"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h11"/></svg><span class="nlabel">Tasks</span></div>
+    <div class="nav-item"><svg viewBox="0 0 24 24"><line x1="12" y1="20" x2="12" y2="10"/><line x1="18" y1="20" x2="18" y2="4"/><line x1="6" y1="20" x2="6" y2="16"/></svg><span class="nlabel">Stats</span></div>
+    <div class="nav-item"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 00.33 1.82l.06.06a2 2 0 010 2.83 2 2 0 01-2.83 0l-.06-.06a1.65 1.65 0 00-1.82-.33 1.65 1.65 0 00-1 1.51V21a2 2 0 01-4 0v-.09A1.65 1.65 0 009 19.4a1.65 1.65 0 00-1.82.33l-.06.06a2 2 0 01-2.83-2.83l.06-.06A1.65 1.65 0 004.68 15a1.65 1.65 0 00-1.51-1H3a2 2 0 010-4h.09A1.65 1.65 0 004.6 9a1.65 1.65 0 00-.33-1.82l-.06-.06a2 2 0 012.83-2.83l.06.06A1.65 1.65 0 009 4.68a1.65 1.65 0 001-1.51V3a2 2 0 014 0v.09a1.65 1.65 0 001 1.51 1.65 1.65 0 001.82-.33l.06-.06a2 2 0 012.83 2.83l-.06.06A1.65 1.65 0 0019.4 9a1.65 1.65 0 001.51 1H21a2 2 0 010 4h-.09a1.65 1.65 0 00-1.51 1z"/></svg><span class="nlabel">Settings</span></div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════ -->
+<!-- SCREEN 5: SETTINGS                              -->
+<!-- ═══════════════════════════════════════════════ -->
+<div class="phone-frame" data-theme="dark" id="frame5">
+  <div class="screen-label">SETTINGS</div>
+  <div class="status-bar"><span>09:41</span><div class="status-right">SAT MAR 28</div></div>
+  <div class="screen">
+    <div class="header anim-1">
+      <h1>SETTINGS_</h1>
+    </div>
+
+    <div class="settings-group anim-2">
+      <div class="settings-group-title">Appearance</div>
+      <div class="settings-card">
+        <div class="settings-row">
+          <div class="settings-icon blue">🌙</div>
+          <div class="settings-label">Dark Mode</div>
+          <div class="toggle-switch on" onclick="this.classList.toggle('on')"></div>
+        </div>
+        <div class="settings-row">
+          <div class="settings-icon purple">🎨</div>
+          <div class="settings-label">Accent Color</div>
+          <div class="settings-value" style="display:flex;align-items:center;gap:6px;">
+            <span style="width:14px;height:14px;border-radius:4px;background:var(--accent);display:inline-block;"></span>
+            Lime
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="settings-group anim-3">
+      <div class="settings-group-title">Notifications</div>
+      <div class="settings-card">
+        <div class="settings-row">
+          <div class="settings-icon orange">🔔</div>
+          <div class="settings-label">Push Notifications</div>
+          <div class="toggle-switch on" onclick="this.classList.toggle('on')"></div>
+        </div>
+        <div class="settings-row">
+          <div class="settings-icon orange">⏰</div>
+          <div class="settings-label">Remind Before Due</div>
+          <div class="settings-value">3 days</div>
+        </div>
+        <div class="settings-row">
+          <div class="settings-icon red">🚨</div>
+          <div class="settings-label">Overdue Alerts</div>
+          <div class="toggle-switch on" onclick="this.classList.toggle('on')"></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="settings-group anim-4">
+      <div class="settings-group-title">Categories</div>
+      <div class="settings-card">
+        <div class="settings-row">
+          <div class="settings-icon green">🏠</div>
+          <div class="settings-label">Home</div>
+          <div class="settings-value">5 tasks</div>
+        </div>
+        <div class="settings-row">
+          <div class="settings-icon green">🚗</div>
+          <div class="settings-label">Vehicle</div>
+          <div class="settings-value">2 tasks</div>
+        </div>
+        <div class="settings-row">
+          <div class="settings-icon green">🌿</div>
+          <div class="settings-label">Yard</div>
+          <div class="settings-value">2 tasks</div>
+        </div>
+        <div class="settings-row" style="justify-content:center;gap:6px;color:var(--accent);font-weight:600;font-size:14px;">
+          <span>+</span> Add Category
+        </div>
+      </div>
+    </div>
+
+    <div class="settings-group anim-5">
+      <div class="settings-group-title">Modules</div>
+      <div class="settings-card">
+        <div class="settings-row">
+          <div class="settings-icon green">✅</div>
+          <div class="settings-label">Task Tracker</div>
+          <div class="toggle-switch on" onclick="this.classList.toggle('on')"></div>
+        </div>
+        <div class="settings-row" style="opacity:0.5">
+          <div class="settings-icon gray">🍽️</div>
+          <div class="settings-label">Restaurants</div>
+          <div class="settings-value" style="font-size:10px;background:var(--warn-dim);color:var(--warn);padding:3px 8px;border-radius:4px;">SOON</div>
+        </div>
+        <div class="settings-row" style="opacity:0.5">
+          <div class="settings-icon gray">💰</div>
+          <div class="settings-label">Financials</div>
+          <div class="settings-value" style="font-size:10px;background:var(--warn-dim);color:var(--warn);padding:3px 8px;border-radius:4px;">SOON</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="settings-group anim-6">
+      <div class="settings-group-title">Data</div>
+      <div class="settings-card">
+        <div class="settings-row">
+          <div class="settings-icon blue">☁️</div>
+          <div class="settings-label">Sync & Backup</div>
+          <div class="settings-value">Synced ✓</div>
+        </div>
+        <div class="settings-row">
+          <div class="settings-icon gray">📤</div>
+          <div class="settings-label">Export Data</div>
+          <div class="settings-chevron"><svg viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="app-version anim-7">HOMEBASE v1.0.0 · Built with .NET + React</div>
+  </div>
+  <div class="bottom-nav">
+    <div class="nav-item"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg><span class="nlabel">Dash</span></div>
+    <div class="nav-item"><svg viewBox="0 0 24 24"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h11"/></svg><span class="nlabel">Tasks</span></div>
+    <div class="nav-item"><svg viewBox="0 0 24 24"><line x1="12" y1="20" x2="12" y2="10"/><line x1="18" y1="20" x2="18" y2="4"/><line x1="6" y1="20" x2="6" y2="16"/></svg><span class="nlabel">Stats</span></div>
+    <div class="nav-item active"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 00.33 1.82l.06.06a2 2 0 010 2.83 2 2 0 01-2.83 0l-.06-.06a1.65 1.65 0 00-1.82-.33 1.65 1.65 0 00-1 1.51V21a2 2 0 01-4 0v-.09A1.65 1.65 0 009 19.4a1.65 1.65 0 00-1.82.33l-.06.06a2 2 0 01-2.83-2.83l.06-.06A1.65 1.65 0 004.68 15a1.65 1.65 0 00-1.51-1H3a2 2 0 010-4h.09A1.65 1.65 0 004.6 9a1.65 1.65 0 00-.33-1.82l-.06-.06a2 2 0 012.83-2.83l.06.06A1.65 1.65 0 009 4.68a1.65 1.65 0 001-1.51V3a2 2 0 014 0v.09a1.65 1.65 0 001 1.51 1.65 1.65 0 001.82-.33l.06-.06a2 2 0 012.83 2.83l-.06.06A1.65 1.65 0 0019.4 9a1.65 1.65 0 001.51 1H21a2 2 0 010 4h-.09a1.65 1.65 0 00-1.51 1z"/></svg><span class="nlabel">Settings</span></div>
+  </div>
+</div>
+
+<script>
+  function toggleAll() {
+    const frames = document.querySelectorAll('.phone-frame');
+    const isDark = frames[0].getAttribute('data-theme') === 'dark';
+    const newTheme = isDark ? 'light' : 'dark';
+    frames.forEach(f => f.setAttribute('data-theme', newTheme));
+
+    document.querySelectorAll('.sun-icon').forEach(s => s.style.display = isDark ? 'block' : 'none');
+    document.querySelectorAll('.moon-icon').forEach(m => m.style.display = isDark ? 'none' : 'block');
+    document.body.style.background = isDark ? '#e5e2da' : '#1c1f21';
+  }
+
+  function switchTab(el) {
+    el.parentElement.querySelectorAll('.cat-tab').forEach(t => t.classList.remove('active'));
+    el.classList.add('active');
+  }
+  function switchChip(el) {
+    el.parentElement.querySelectorAll('.chip').forEach(c => c.classList.remove('active'));
+    el.classList.add('active');
+  }
+  function switchSort(el) {
+    el.parentElement.querySelectorAll('.chip').forEach(c => c.classList.remove('active'));
+    el.classList.add('active');
+  }
+</script>
+</body>
+</html>
