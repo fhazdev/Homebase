@@ -30,12 +30,8 @@ resource "azurerm_key_vault" "main" {
 
   network_acls {
     bypass         = "AzureServices"
-    default_action = "Deny"
-
-    # Allow the Terraform executor's outbound IP to read/write secrets during
-    # plan/apply. Add additional IPs for CI/CD agents as needed.
-    # ip_rules = ["<your-cicd-agent-ip>/32"]
-    ip_rules = []
+    default_action = "Allow"
+    ip_rules       = []
   }
 
   tags = local.common_tags

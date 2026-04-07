@@ -156,7 +156,10 @@ jobs:
         id: plan
         working-directory: infra
         run: |
-          terraform plan -no-color -out=tfplan 2>&1 | tee plan-output.txt
+          terraform plan -no-color -out=tfplan \
+            -var="subscription_id=${{ secrets.AZURE_SUBSCRIPTION_ID }}" \
+            -var="sql_admin_password=${{ secrets.SQL_ADMIN_PASSWORD }}" \
+            2>&1 | tee plan-output.txt
           echo "exitcode=${PIPESTATUS[0]}" >> "$GITHUB_OUTPUT"
         continue-on-error: true
 
