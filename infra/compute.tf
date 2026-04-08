@@ -137,7 +137,8 @@ resource "azurerm_container_app" "api" {
   secret {
     name  = "sql-connection-string"
     # Retrieve at runtime from Key Vault; value stored as a Key Vault reference.
-    key_vault_secret_id = azurerm_key_vault_secret.sql_connection_string.id
+    # Use versionless_id to avoid provider bug when secret version changes.
+    key_vault_secret_id = azurerm_key_vault_secret.sql_connection_string.versionless_id
     identity            = azurerm_user_assigned_identity.api.id
   }
 
@@ -149,6 +150,7 @@ resource "azurerm_container_app" "api" {
     # container-apps-deploy-action updates the image on each deploy.
     ignore_changes = [
       template[0].container[0].image,
+      secret,
     ]
   }
 
