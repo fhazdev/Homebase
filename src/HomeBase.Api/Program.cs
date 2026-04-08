@@ -100,6 +100,10 @@ try
     builder.Services.AddScoped<IListItemRepository, ListItemRepository>();
     builder.Services.AddScoped<UserListService>();
 
+    // Background migration – runs after the web server starts listening so the
+    // liveness probe passes immediately even while the serverless DB is waking up.
+    builder.Services.AddHostedService<MigrationHostedService>();
+
     // FluentValidation
     builder.Services.AddValidatorsFromAssemblyContaining<CreateTaskRequestValidator>();
 
@@ -145,13 +149,6 @@ try
     {
         Predicate = check => check.Tags.Contains("ready") || check.Name == "database"
     });
-
-    // Apply pending migrations on startup
-    using (var scope = app.Services.CreateScope())
-    {
-        var db = scope.ServiceProvider.GetRequiredService<HomeBaseDbContext>();
-        await db.Database.MigrateAsync();
-    }
 
     app.Run();
 }
