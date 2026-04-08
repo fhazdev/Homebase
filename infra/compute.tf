@@ -112,8 +112,12 @@ resource "azurerm_container_app" "api" {
 
       readiness_probe {
         transport = "HTTP"
-        path      = "/health/ready"
-        port      = var.container_port
+        # Use the same no-dependency endpoint as liveness so KEDA can activate
+        # the revision immediately without waiting for the serverless SQL DB to
+        # wake up (30-60 s). Real DB connectivity is checked by Application
+        # Insights availability tests, not the readiness gate.
+        path = "/health/live"
+        port = var.container_port
 
         interval_seconds        = 10
         timeout                 = 5
