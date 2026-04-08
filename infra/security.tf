@@ -41,11 +41,12 @@ resource "azurerm_key_vault" "main" {
 # Key Vault Access Policies
 # ---------------------------------------------------------------------------
 
-# Terraform deployment principal – full secret management
+# CI/CD service principal – full secret management
+# Object ID is the GitHub Actions service principal created for deployments.
 resource "azurerm_key_vault_access_policy" "terraform_deployer" {
   key_vault_id = azurerm_key_vault.main.id
   tenant_id    = data.azurerm_client_config.current.tenant_id
-  object_id    = data.azurerm_client_config.current.object_id
+  object_id    = var.terraform_deployer_object_id
 
   secret_permissions = [
     "Get", "List", "Set", "Delete", "Purge", "Recover", "Backup", "Restore",

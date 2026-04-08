@@ -8,6 +8,12 @@ variable "subscription_id" {
   sensitive   = true
 }
 
+variable "terraform_deployer_object_id" {
+  description = "Object ID of the principal (service principal or user) that runs Terraform and needs Key Vault access."
+  type        = string
+  default     = "21cb1d31-f0d0-4959-af3d-407d80bfd29b" # GitHub Actions service principal
+}
+
 variable "resource_group_name" {
   description = "Name of the primary resource group."
   type        = string

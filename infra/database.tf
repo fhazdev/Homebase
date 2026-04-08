@@ -73,6 +73,7 @@ resource "azurerm_mssql_database" "main" {
       long_term_retention_policy,
       threat_detection_policy,
       short_term_retention_policy,
+      geo_backup_enabled,
     ]
   }
 }
