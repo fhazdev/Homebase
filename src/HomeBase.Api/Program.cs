@@ -134,16 +134,21 @@ try
     app.UseAuthorization();
 
     app.MapControllers();
+    // Liveness – just checks that the process is alive, no external deps
+    app.MapHealthChecks("/health/live", new Microsoft.AspNetCore.Diagnostics.HealthChecks.HealthCheckOptions
+    {
+        Predicate = _ => false
+    });
     app.MapHealthChecks("/health");
+    // Readiness – checks DB connectivity; returns 503 while DB is waking up
     app.MapHealthChecks("/health/ready", new Microsoft.AspNetCore.Diagnostics.HealthChecks.HealthCheckOptions
     {
         Predicate = check => check.Tags.Contains("ready") || check.Name == "database"
     });
 
-    // Auto-migrate in development
-    if (app.Environment.IsDevelopment())
+    // Apply pending migrations on startup
+    using (var scope = app.Services.CreateScope())
     {
-        using var scope = app.Services.CreateScope();
         var db = scope.ServiceProvider.GetRequiredService<HomeBaseDbContext>();
         await db.Database.MigrateAsync();
     }
