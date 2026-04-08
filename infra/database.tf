@@ -51,9 +51,6 @@ resource "azurerm_mssql_database" "main" {
   # Auto-pause after N minutes of inactivity (free-tier friendly)
   auto_pause_delay_in_minutes = var.sql_auto_pause_delay_minutes
 
-  # When free monthly limit is reached, pause instead of incurring charges.
-  free_limit_exhaustion_behavior = "AutoPause"
-
   # Zone redundancy is not available on free/serverless SKUs.
   zone_redundant = false
 
@@ -66,18 +63,17 @@ resource "azurerm_mssql_database" "main" {
     backup_interval_in_hours = 24
   }
 
-  # Long-term retention (optional – free, using LRS).
-  long_term_retention_policy {
-    weekly_retention  = "P4W"
-    monthly_retention = "P3M"
-    yearly_retention  = "P1Y"
-    week_of_year      = 1
-  }
-
   tags = local.common_tags
 
   lifecycle {
     prevent_destroy = true
+    # Ignore computed/defaulted fields that drift from Azure defaults
+    # to prevent unintended database recreation.
+    ignore_changes = [
+      long_term_retention_policy,
+      threat_detection_policy,
+      short_term_retention_policy,
+    ]
   }
 }
 
@@ -85,20 +81,9 @@ resource "azurerm_mssql_database" "main" {
 # Diagnostic settings – stream SQL audit logs to Log Analytics
 # ---------------------------------------------------------------------------
 
-resource "azurerm_monitor_diagnostic_setting" "sql_server" {
-  name                       = "diag-sql-${local.name_prefix}"
-  target_resource_id         = "${azurerm_mssql_server.main.id}/databases/master"
-  log_analytics_workspace_id = azurerm_log_analytics_workspace.main.id
-
-  enabled_log {
-    category = "SQLSecurityAuditEvents"
-  }
-
-  metric {
-    category = "Basic"
-    enabled  = false
-  }
-}
+# Master DB audit diagnostic setting removed — the master database path
+# (/databases/master) is not accessible via diagnostic settings API on
+# serverless SQL databases at creation time. User database diagnostics below.
 
 resource "azurerm_monitor_diagnostic_setting" "sql_database" {
   name                       = "diag-sqldb-${local.name_prefix}"
@@ -121,13 +106,11 @@ resource "azurerm_monitor_diagnostic_setting" "sql_database" {
     category = "Errors"
   }
 
-  metric {
+  enabled_metric {
     category = "Basic"
-    enabled  = true
   }
 
-  metric {
+  enabled_metric {
     category = "InstanceAndAppAdvanced"
-    enabled  = true
   }
 }

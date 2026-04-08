@@ -54,18 +54,10 @@ resource "azurerm_container_app" "api" {
       percentage      = 100
       latest_revision = true
     }
-
-    # Custom domain binding – DNS CNAME must point api.homebase.fhbox.xyz
-    # to the Container Apps environment's default domain before applying.
-    custom_domain {
-      name                     = var.api_hostname
-      certificate_binding_type = "SniEnabled"
-      # Certificate managed by Azure (free managed cert for custom domains).
-      # The certificate_id is resolved after the domain is validated;
-      # set to null initially and update once validation passes.
-      certificate_id = null
-    }
   }
+
+  # Custom domain binding is handled separately via azurerm_container_app_custom_domain
+  # after the Container App exists and DNS is validated. See web.tf for that resource.
 
   # ---------------------------------------------------------------------------
   # Container definition
@@ -173,8 +165,7 @@ resource "azurerm_monitor_diagnostic_setting" "container_app_env" {
     category = "ContainerAppSystemLogs"
   }
 
-  metric {
+  enabled_metric {
     category = "AllMetrics"
-    enabled  = true
   }
 }

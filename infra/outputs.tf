@@ -34,7 +34,7 @@ output "sql_connection_string" {
     azurerm_mssql_database.main.name,
     var.sql_admin_login,
   )
-  sensitive = false
+  sensitive = true
 }
 
 # ---------------------------------------------------------------------------

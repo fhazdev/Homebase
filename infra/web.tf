@@ -36,14 +36,14 @@ resource "azurerm_static_web_app" "frontend" {
 # DNS record resolves correctly.
 # ---------------------------------------------------------------------------
 
-resource "azurerm_static_web_app_custom_domain" "frontend" {
-  static_web_app_id = azurerm_static_web_app.frontend.id
-  domain_name       = var.frontend_hostname
-
-  # "cname-delegation" tells Azure to validate ownership via the CNAME record.
-  # Switch to "txt" if you need TXT-record validation (e.g. for apex domains).
-  validation_type = "cname-delegation"
-}
+# Custom domain binding – uncomment after DNS CNAME records are created:
+#   homebase.fhbox.xyz → polite-bay-06f4f9b1e.6.azurestaticapps.net
+#
+# resource "azurerm_static_web_app_custom_domain" "frontend" {
+#   static_web_app_id = azurerm_static_web_app.frontend.id
+#   domain_name       = var.frontend_hostname
+#   validation_type   = "cname-delegation"
+# }
 
 # ---------------------------------------------------------------------------
 # Store the Static Web App deployment API key in Key Vault

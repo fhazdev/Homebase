@@ -161,7 +161,7 @@ resource "azurerm_monitor_metric_alert" "container_restarts" {
   criteria {
     metric_namespace = "Microsoft.App/containerApps"
     metric_name      = "RestartCount"
-    aggregation      = "Count"
+    aggregation      = "Total"
     operator         = "GreaterThan"
     threshold        = 0
   }

@@ -17,7 +17,7 @@ resource "azurerm_user_assigned_identity" "api" {
 # ---------------------------------------------------------------------------
 
 resource "azurerm_key_vault" "main" {
-  name                = "kv-${local.name_prefix}"
+  name                = "kv-${local.name_prefix}-01"
   resource_group_name = azurerm_resource_group.main.name
   location            = azurerm_resource_group.main.location
   tenant_id           = data.azurerm_client_config.current.tenant_id
@@ -25,7 +25,7 @@ resource "azurerm_key_vault" "main" {
   sku_name                      = var.key_vault_sku
   soft_delete_retention_days    = 7
   purge_protection_enabled      = true
-  enable_rbac_authorization     = false # use access policies for simplicity
+  rbac_authorization_enabled    = false # use access policies for simplicity
   public_network_access_enabled = true  # locked down via network_acls below
 
   network_acls {
