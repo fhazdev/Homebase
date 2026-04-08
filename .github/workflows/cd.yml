@@ -26,7 +26,7 @@ jobs:
 
     outputs:
       image-tag: ${{ steps.meta.outputs.tags }}
-      sha-tag: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:${{ github.sha }}
+      sha-tag: ${{ steps.sha-tag.outputs.tag }}
 
     steps:
       - name: Checkout
@@ -50,6 +50,10 @@ jobs:
           tags: |
             type=sha,format=long
             type=raw,value=latest
+
+      - name: Set lowercase sha tag
+        id: sha-tag
+        run: echo "tag=${{ env.REGISTRY }}/$(echo '${{ env.IMAGE_NAME }}' | tr '[:upper:]' '[:lower:]'):sha-${{ github.sha }}" >> $GITHUB_OUTPUT
 
       - name: Build and push
         uses: docker/build-push-action@v6
@@ -121,12 +125,15 @@ jobs:
           tenant-id: ${{ secrets.AZURE_TENANT_ID }}
           subscription-id: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
 
+      - name: Set lowercase image tag
+        run: echo "IMAGE_TAG=${{ env.REGISTRY }}/$(echo '${{ env.IMAGE_NAME }}' | tr '[:upper:]' '[:lower:]'):sha-${{ github.sha }}" >> $GITHUB_ENV
+
       - name: Deploy to Azure Container Apps
         uses: azure/container-apps-deploy-action@v2
         with:
           resourceGroup: rg-homebase
           containerAppName: ca-homebase-prod-api
-          imageToDeploy: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:sha-${{ github.sha }}
+          imageToDeploy: ${{ env.IMAGE_TAG }}
           registryUrl: ${{ env.REGISTRY }}
           registryUsername: ${{ github.actor }}
           registryPassword: ${{ secrets.GITHUB_TOKEN }}
@@ -170,8 +177,8 @@ jobs:
         with:
           azure_static_web_apps_api_token: ${{ secrets.SWA_DEPLOYMENT_TOKEN }}
           action: upload
-          app_location: src/HomeBase.Web
-          output_location: dist
+          app_location: src/HomeBase.Web/dist
+          output_location: ""
           skip_app_build: true
 
   # ---------------------------------------------------------------------------
