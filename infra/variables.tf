@@ -17,7 +17,7 @@ variable "resource_group_name" {
 variable "location" {
   description = "Azure region for all resources."
   type        = string
-  default     = "eastus"
+  default     = "westus2"
 }
 
 variable "environment" {
@@ -34,7 +34,7 @@ variable "environment" {
 variable "owner_tag" {
   description = "Owner tag applied to all resources."
   type        = string
-  default     = "homebase-team"
+  default     = "fhazdev"
 }
 
 # ---------------------------------------------------------------------------
@@ -135,7 +135,7 @@ variable "container_port" {
 variable "alert_email" {
   description = "Email address that receives monitoring alerts."
   type        = string
-  default     = "alerts@fhbox.xyz"
+  default     = "fjhshadow@gmail.com"
 }
 
 variable "log_retention_days" {

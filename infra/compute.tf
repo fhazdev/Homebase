@@ -143,6 +143,15 @@ resource "azurerm_container_app" "api" {
 
   tags = local.common_tags
 
+  lifecycle {
+    # Image is managed by the CD pipeline deploy-api step, not Terraform.
+    # Terraform handles infrastructure (env vars, scaling, secrets); the
+    # container-apps-deploy-action updates the image on each deploy.
+    ignore_changes = [
+      template[0].container[0].image,
+    ]
+  }
+
   depends_on = [
     azurerm_key_vault_access_policy.api_identity,
   ]
