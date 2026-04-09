@@ -109,6 +109,8 @@ jobs:
     runs-on: ubuntu-latest
     needs: [build-push, terraform-apply]
     environment: production
+    outputs:
+      api_url: ${{ steps.get-fqdn.outputs.api_url }}
 
     permissions:
       id-token: write
@@ -137,6 +139,15 @@ jobs:
           registryUrl: ${{ env.REGISTRY }}
           registryUsername: ${{ github.actor }}
           registryPassword: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Get Container App FQDN
+        id: get-fqdn
+        run: |
+          FQDN=$(az containerapp show \
+            --name ca-homebase-prod-api \
+            --resource-group rg-homebase \
+            --query "properties.configuration.ingress.fqdn" -o tsv)
+          echo "api_url=https://${FQDN}" >> $GITHUB_OUTPUT
 
   # ---------------------------------------------------------------------------
   # Deploy web to Azure Static Web Apps
@@ -200,7 +211,7 @@ jobs:
             --retry 10 \
             --retry-delay 10 \
             --retry-connrefused \
-            "${{ secrets.VITE_API_BASE_URL }}/health/live")
+            "${{ needs.deploy-api.outputs.api_url }}/health/live")
           echo "HTTP status: $STATUS"
           if [ "$STATUS" -ne 200 ]; then
             echo "Liveness check failed with status $STATUS"
@@ -214,7 +225,7 @@ jobs:
             --retry 12 \
             --retry-delay 15 \
             --retry-connrefused \
-            "${{ secrets.VITE_API_BASE_URL }}/health/ready")
+            "${{ needs.deploy-api.outputs.api_url }}/health/ready")
           echo "HTTP status: $STATUS"
           if [ "$STATUS" -ne 200 ]; then
             echo "Readiness check failed with status $STATUS — DB may still be waking up"
