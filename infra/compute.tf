@@ -96,6 +96,11 @@ resource "azurerm_container_app" "api" {
         value       = azurerm_key_vault.main.vault_uri
       }
 
+      env {
+        name  = "Cors__AllowedOrigins__0"
+        value = "https://${var.frontend_hostname}"
+      }
+
       # -----------------------------------------------------------------------
       # Liveness & readiness probes
       # -----------------------------------------------------------------------
