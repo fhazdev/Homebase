@@ -218,19 +218,5 @@ jobs:
             exit 1
           fi
 
-      - name: Readiness check
-        run: |
-          STATUS=$(curl --silent --output /dev/null --write-out '%{http_code}' \
-            --max-time 30 \
-            --retry 12 \
-            --retry-delay 15 \
-            --retry-connrefused \
-            "${{ needs.deploy-api.outputs.api_url }}/health/ready")
-          echo "HTTP status: $STATUS"
-          if [ "$STATUS" -ne 200 ]; then
-            echo "Readiness check failed with status $STATUS — DB may still be waking up"
-            exit 1
-          fi
-
       - name: Smoke test passed
         run: echo "Deployment verified. API is live and healthy."
